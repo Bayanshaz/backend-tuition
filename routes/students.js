@@ -61,4 +61,27 @@ router.get('/my-students', auth, async (req, res) => {
   }
 });
 
+// Delete student
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'teacher') {
+      return res.status(403).json({ message: 'Only teachers can delete students' });
+    }
+
+    const student = await User.findOneAndDelete({
+      _id: req.params.id,
+      createdBy: req.user.id,
+      role: 'student'
+    });
+
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    res.json({ message: 'Student deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

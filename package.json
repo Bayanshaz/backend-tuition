@@ -1,7 +1,7 @@
 {
-  "name": "tuition-center-backend",
+  "name": "sherin-tuition-backend",
   "version": "1.0.0",
-  "description": "Backend for tuition center",
+  "description": "Backend for Sherin Tuition Center",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -13,7 +13,6 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "cors": "^2.8.5",
-    "multer": "^1.4.5-lts.1",
     "dotenv": "^16.3.1"
   },
   "devDependencies": {

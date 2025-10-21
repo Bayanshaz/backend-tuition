@@ -1,20 +1,12 @@
 const mongoose = require('mongoose');
 
-const videoSchema = new mongoose.Schema({
+const studyMaterialSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
   description: String,
-  filename: {
-    type: String,
-    required: true
-  },
-  originalName: {
-    type: String,
-    required: true
-  },
-  path: {
+  youtubeLink: {
     type: String,
     required: true
   },
@@ -42,4 +34,4 @@ const videoSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Video', videoSchema);
+module.exports = mongoose.model('StudyMaterial', studyMaterialSchema);

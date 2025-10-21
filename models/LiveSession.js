@@ -5,7 +5,7 @@ const liveSessionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  youtubeLink: {
+  googleMeetLink: {
     type: String,
     required: true
   },
@@ -30,15 +30,6 @@ const liveSessionSchema = new mongoose.Schema({
   scheduledAt: {
     type: Date,
     required: true
-  },
-  isCompleted: {
-    type: Boolean,
-    default: false
-  },
-  recordedVideo: {
-    filename: String,
-    originalName: String,
-    path: String
   },
   createdAt: {
     type: Date,

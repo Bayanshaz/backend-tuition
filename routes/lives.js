@@ -11,11 +11,11 @@ router.post('/', auth, async (req, res) => {
       return res.status(403).json({ message: 'Only teachers can create live sessions' });
     }
 
-    const { title, youtubeLink, subject, scheduledAt } = req.body;
+    const { title, googleMeetLink, subject, scheduledAt } = req.body;
 
     const liveSession = new LiveSession({
       title,
-      youtubeLink,
+      googleMeetLink,
       subject,
       scheduledAt,
       conductedBy: req.user.id
@@ -62,29 +62,23 @@ router.get('/teacher-lives', auth, async (req, res) => {
   }
 });
 
-// Mark live as completed and add recorded video
-router.put('/:id/complete', auth, async (req, res) => {
+// Delete live session
+router.delete('/:id', auth, async (req, res) => {
   try {
     if (req.user.role !== 'teacher') {
-      return res.status(403).json({ message: 'Only teachers can complete live sessions' });
+      return res.status(403).json({ message: 'Only teachers can delete live sessions' });
     }
 
-    const { recordedVideo } = req.body;
-
-    const liveSession = await LiveSession.findOneAndUpdate(
-      { _id: req.params.id, conductedBy: req.user.id },
-      { 
-        isCompleted: true,
-        recordedVideo 
-      },
-      { new: true }
-    );
+    const liveSession = await LiveSession.findOneAndDelete({
+      _id: req.params.id,
+      conductedBy: req.user.id
+    });
 
     if (!liveSession) {
       return res.status(404).json({ message: 'Live session not found' });
     }
 
-    res.json(liveSession);
+    res.json({ message: 'Live session deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
